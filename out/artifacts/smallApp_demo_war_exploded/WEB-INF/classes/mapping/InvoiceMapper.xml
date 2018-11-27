@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="json.mapper.InvoiceMapper">
+    <resultMap id="BaseResultMap" type="json.model.Invoice">
+        <id column="xy_id" property="xyId" jdbcType="INTEGER"/>
+        <result column="xy_invoice_code" property="xyInvoiceCode" jdbcType="VARCHAR"/>
+        <result column="xy_invoice_num" property="xyInvoiceNum" jdbcType="VARCHAR"/>
+        <result column="xy_invoice_flownum" property="xyInvoiceFlownum" jdbcType="VARCHAR"/>
+        <result column="xy_invoice_cash" property="xyInvoiceCash" jdbcType="REAL"/>
+        <result column="xy_invoice_tax" property="xyInvoiceTax" jdbcType="REAL"/>
+        <result column="xy_invoice_total" property="xyInvoiceTotal" jdbcType="REAL"/>
+        <result column="xy_invoice_type" property="xyInvoiceType" jdbcType="VARCHAR"/>
+        <result column="xy_note" property="xyNote" jdbcType="VARCHAR"/>
+        <result column="xy_buyername" property="xyBuyername" jdbcType="VARCHAR"/>
+        <result column="xy_buyertaxcode" property="xyBuyertaxcode" jdbcType="VARCHAR"/>
+        <result column="xy_buyerbank_account" property="xyBuyerbankAccount" jdbcType="VARCHAR"/>
+        <result column="xy_buyertel" property="xyBuyertel" jdbcType="VARCHAR"/>
+        <result column="xy_salertaxcode" property="xySalertaxcode" jdbcType="VARCHAR"/>
+        <result column="xy_salername" property="xySalername" jdbcType="VARCHAR"/>
+        <result column="xy_salertel" property="xySalertel" jdbcType="VARCHAR"/>
+        <result column="xy_salerbankaccount" property="xySalerbankaccount" jdbcType="VARCHAR"/>
+        <result column="xy_odate" property="xyOdate" jdbcType="VARCHAR"/>
+        <result column="xy_v" property="xyV" jdbcType="VARCHAR"/>
+        <result column="xy_r" property="xyR" jdbcType="VARCHAR"/>
+        <result column="xy_people" property="xyPeople" jdbcType="VARCHAR"/>
+        <result column="xy_rdate" property="xyRdate" jdbcType="VARCHAR"/>
+        <result column="xy_input_date" property="xyInputDate" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        xy_id, xy_invoice_code, xy_invoice_num, xy_invoice_flownum, xy_invoice_cash, xy_invoice_tax,
+        xy_invoice_total, xy_invoice_type, xy_note, xy_buyername, xy_buyertaxcode, xy_buyerbank_account,
+        xy_buyertel, xy_salertaxcode, xy_salername, xy_salertel, xy_salerbankaccount, xy_odate,
+        xy_v, xy_r, xy_people, xy_rdate,xy_input_date
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+        where xy_id = #{xyId,jdbcType=INTEGER}
+    </select>
+    <!--查总表-->
+    <select id="Query" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+    </select>
+    <!--单条查重-->
+    <select id="Aldis" resultMap="BaseResultMap" parameterType="java.lang.String"
+            resultType="map"><!--多条记录mybatis_01.Person-->
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+        where xy_invoice_code = #{param1} and xy_invoice_num = #{param2}
+    </select>
+    <!--根据时间范围查找数据-->
+    <select id="queryInvoiceDate" resultMap="BaseResultMap" parameterType="java.lang.String"
+            resultType="map"><!--多条记录mybatis_01.Person-->
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+        where xy_input_date between str_to_date('${param1}','%Y-%m-%d %H:%i:%s') and str_to_date('${param2}','%Y-%m-%d %H:%i:%s') order by xy_input_date asc
+    </select>
+    <!--批量查重-->
+    <select id="selectForCheckRepeat" resultMap="BaseResultMap"
+            parameterType="java.lang.String"><!--多条记录mybatis_01.Person-->
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+        where (xy_invoice_code,xy_invoice_num) in (${inAreaOfCodeAndNum})
+    </select>
+    <select id="selectAllInvoice" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from invoice
+        where xy_id = #{xyId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="json.model.Invoice">
+        insert into invoice (xy_id, xy_invoice_code, xy_invoice_num,
+                             xy_invoice_flownum, xy_invoice_cash, xy_invoice_tax,
+                             xy_invoice_total, xy_invoice_type, xy_note,
+                             xy_buyername, xy_buyertaxcode, xy_buyerbank_account,
+                             xy_buyertel, xy_salertaxcode, xy_salername,
+                             xy_salertel, xy_salerbankaccount, xy_odate,
+                             xy_v, xy_r, xy_people,
+                             xy_rdate)
+        values (#{xyId,jdbcType=INTEGER}, #{xyInvoiceCode,jdbcType=VARCHAR}, #{xyInvoiceNum,jdbcType=VARCHAR},
+                                          #{xyInvoiceFlownum,jdbcType=VARCHAR}, #{xyInvoiceCash,jdbcType=REAL},
+                                          #{xyInvoiceTax,jdbcType=REAL},
+                                          #{xyInvoiceTotal,jdbcType=REAL}, #{xyInvoiceType,jdbcType=VARCHAR},
+                                          #{xyNote,jdbcType=VARCHAR},
+                                          #{xyBuyername,jdbcType=VARCHAR}, #{xyBuyertaxcode,jdbcType=VARCHAR},
+            #{xyBuyerbankAccount,jdbcType=VARCHAR},
+            #{xyBuyertel,jdbcType=VARCHAR}, #{xySalertaxcode,jdbcType=VARCHAR}, #{xySalername,jdbcType=VARCHAR},
+            #{xySalertel,jdbcType=VARCHAR}, #{xySalerbankaccount,jdbcType=VARCHAR}, str_to_date(#{xyOdate,jdbcType=VARCHAR},'%Y-%m-%d'),
+            #{xyV,jdbcType=VARCHAR}, #{xyR,jdbcType=VARCHAR}, #{xyPeople,jdbcType=VARCHAR},
+                str_to_date(#{xyRdate,jdbcType=VARCHAR},'%Y-%m-%d'))
+    </insert>
+    <!-- 保存List-->
+    <insert id="saveArray" useGeneratedKeys="true" keyProperty="id" parameterType="java.lang.Integer">
+        INSERT INTO invoice
+        (
+        xy_invoice_code,
+        xy_invoice_num,
+        xy_invoice_flownum,
+        xy_invoice_cash,
+        xy_invoice_tax,
+        xy_invoice_total,
+        xy_invoice_type,
+        xy_note,
+        xy_buyername,
+        xy_buyertaxcode,
+        xy_buyerbank_account,
+        xy_buyertel,
+        xy_salertaxcode,
+        xy_salername,
+        xy_salertel,
+        xy_salerbankaccount,
+        xy_odate,
+        xy_v,
+        xy_r,
+        xy_people,
+        xy_rdate,
+        xy_input_date
+        )
+        VALUES
+        <foreach collection="saveInvoiceList" item="Invoice" index="key" separator="," >
+            (
+            '${Invoice.xyInvoiceCode}',
+            '${Invoice.xyInvoiceNum}',
+            '${Invoice.xyInvoiceFlownum}',
+            '${Invoice.xyInvoiceCash}',
+            '${Invoice.xyInvoiceTax}',
+            '${Invoice.xyInvoiceTotal}',
+            '${Invoice.xyInvoiceType}',
+            '${Invoice.xyNote}',
+            '${Invoice.xyBuyername}',
+            '${Invoice.xyBuyertaxcode}',
+            '${Invoice.xyBuyerbankAccount}',
+            '${Invoice.xyBuyertel}',
+            '${Invoice.xySalertaxcode}',
+            '${Invoice.xySalername}',
+            '${Invoice.xySalertel}',
+            '${Invoice.xySalerbankaccount}',
+            str_to_date('${Invoice.xyOdate}','%Y-%m-%d %H:%i:%s'),
+            '${Invoice.xyV}',
+            '${Invoice.xyR}',
+            '${Invoice.xyPeople}',
+            str_to_date('${Invoice.xyOdate}','%Y-%m-%d %H:%i:%s'),
+            str_to_date('${Invoice.xyInputDate}','%Y-%m-%d %H:%i:%s')
+            )
+        </foreach>
+        <selectKey  resultType="int"  order="AFTER"  keyProperty="xyId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="json.model.Invoice">
+        insert into invoice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="xyInvoiceCode != null">
+                xy_invoice_code,
+            </if>
+            <if test="xyInvoiceNum != null">
+                xy_invoice_num,
+            </if>
+            <if test="xyInvoiceFlownum != null">
+                xy_invoice_flownum,
+            </if>
+            <if test="xyInvoiceCash != null">
+                xy_invoice_cash,
+            </if>
+            <if test="xyInvoiceTax != null">
+                xy_invoice_tax,
+            </if>
+            <if test="xyInvoiceTotal != null">
+                xy_invoice_total,
+            </if>
+            <if test="xyInvoiceType != null">
+                xy_invoice_type,
+            </if>
+            <if test="xyNote != null">
+                xy_note,
+            </if>
+            <if test="xyBuyername != null">
+                xy_buyername,
+            </if>
+            <if test="xyBuyertaxcode != null">
+                xy_buyertaxcode,
+            </if>
+            <if test="xyBuyerbankAccount != null">
+                xy_buyerbank_account,
+            </if>
+            <if test="xyBuyertel != null">
+                xy_buyertel,
+            </if>
+            <if test="xySalertaxcode != null">
+                xy_salertaxcode,
+            </if>
+            <if test="xySalername != null">
+                xy_salername,
+            </if>
+            <if test="xySalertel != null">
+                xy_salertel,
+            </if>
+            <if test="xySalerbankaccount != null">
+                xy_salerbankaccount,
+            </if>
+            <if test="xyOdate != null">
+                xy_odate,
+            </if>
+            <if test="xyV != null">
+                xy_v,
+            </if>
+            <if test="xyR != null">
+                xy_r,
+            </if>
+            <if test="xyPeople != null">
+                xy_people,
+            </if>
+            <if test="xyRdate != null">
+                xy_rdate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="xyInvoiceCode != null">
+                #{xyInvoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceNum != null">
+                #{xyInvoiceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceFlownum != null">
+                #{xyInvoiceFlownum,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceCash != null">
+                #{xyInvoiceCash,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceTax != null">
+                #{xyInvoiceTax,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceTotal != null">
+                #{xyInvoiceTotal,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceType != null">
+                #{xyInvoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="xyNote != null">
+                #{xyNote,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyername != null">
+                #{xyBuyername,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyertaxcode != null">
+                #{xyBuyertaxcode,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyerbankAccount != null">
+                #{xyBuyerbankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyertel != null">
+                #{xyBuyertel,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalertaxcode != null">
+                #{xySalertaxcode,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalername != null">
+                #{xySalername,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalertel != null">
+                #{xySalertel,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalerbankaccount != null">
+                #{xySalerbankaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="xyOdate != null">
+                #{xyOdate,jdbcType=DATE},
+            </if>
+            <if test="xyV != null">
+                #{xyV,jdbcType=VARCHAR},
+            </if>
+            <if test="xyR != null">
+                #{xyR,jdbcType=VARCHAR},
+            </if>
+            <if test="xyPeople != null">
+                #{xyPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="xyRdate != null">
+                #{xyRdate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="json.model.Invoice">
+        update invoice
+        <set>
+            <if test="xyInvoiceCode != null">
+                xy_invoice_code = #{xyInvoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceNum != null">
+                xy_invoice_num = #{xyInvoiceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceFlownum != null">
+                xy_invoice_flownum = #{xyInvoiceFlownum,jdbcType=VARCHAR},
+            </if>
+            <if test="xyInvoiceCash != null">
+                xy_invoice_cash = #{xyInvoiceCash,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceTax != null">
+                xy_invoice_tax = #{xyInvoiceTax,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceTotal != null">
+                xy_invoice_total = #{xyInvoiceTotal,jdbcType=REAL},
+            </if>
+            <if test="xyInvoiceType != null">
+                xy_invoice_type = #{xyInvoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="xyNote != null">
+                xy_note = #{xyNote,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyername != null">
+                xy_buyername = #{xyBuyername,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyertaxcode != null">
+                xy_buyertaxcode = #{xyBuyertaxcode,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyerbankAccount != null">
+                xy_buyerbank_account = #{xyBuyerbankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="xyBuyertel != null">
+                xy_buyertel = #{xyBuyertel,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalertaxcode != null">
+                xy_salertaxcode = #{xySalertaxcode,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalername != null">
+                xy_salername = #{xySalername,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalertel != null">
+                xy_salertel = #{xySalertel,jdbcType=VARCHAR},
+            </if>
+            <if test="xySalerbankaccount != null">
+                xy_salerbankaccount = #{xySalerbankaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="xyOdate != null">
+                xy_odate = #{xyOdate,jdbcType=DATE},
+            </if>
+            <if test="xyV != null">
+                xy_v = #{xyV,jdbcType=VARCHAR},
+            </if>
+            <if test="xyR != null">
+                xy_r = #{xyR,jdbcType=VARCHAR},
+            </if>
+            <if test="xyPeople != null">
+                xy_people = #{xyPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="xyRdate != null">
+                xy_rdate = #{xyRdate,jdbcType=DATE},
+            </if>
+        </set>
+        where xy_id = #{xyId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="json.model.Invoice">
+        update invoice
+        set xy_invoice_code      = #{xyInvoiceCode,jdbcType=VARCHAR},
+            xy_invoice_num       = #{xyInvoiceNum,jdbcType=VARCHAR},
+            xy_invoice_flownum   = #{xyInvoiceFlownum,jdbcType=VARCHAR},
+            xy_invoice_cash      = #{xyInvoiceCash,jdbcType=REAL},
+            xy_invoice_tax       = #{xyInvoiceTax,jdbcType=REAL},
+            xy_invoice_total     = #{xyInvoiceTotal,jdbcType=REAL},
+            xy_invoice_type      = #{xyInvoiceType,jdbcType=VARCHAR},
+            xy_note              = #{xyNote,jdbcType=VARCHAR},
+            xy_buyername         = #{xyBuyername,jdbcType=VARCHAR},
+            xy_buyertaxcode      = #{xyBuyertaxcode,jdbcType=VARCHAR},
+            xy_buyerbank_account = #{xyBuyerbankAccount,jdbcType=VARCHAR},
+            xy_buyertel          = #{xyBuyertel,jdbcType=VARCHAR},
+            xy_salertaxcode      = #{xySalertaxcode,jdbcType=VARCHAR},
+            xy_salername         = #{xySalername,jdbcType=VARCHAR},
+            xy_salertel          = #{xySalertel,jdbcType=VARCHAR},
+            xy_salerbankaccount  = #{xySalerbankaccount,jdbcType=VARCHAR},
+            xy_odate             = #{xyOdate,jdbcType=DATE},
+            xy_v                 = #{xyV,jdbcType=VARCHAR},
+            xy_r                 = #{xyR,jdbcType=VARCHAR},
+            xy_people            = #{xyPeople,jdbcType=VARCHAR},
+            xy_rdate             = #{xyRdate,jdbcType=DATE}
+        where xy_id = #{xyId,jdbcType=INTEGER}
+    </update>
+</mapper>

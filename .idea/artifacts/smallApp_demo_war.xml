@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="smallApp_demo:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/smallApp_demo_war</output-path>
+    <root id="archive" name="smallApp_demo_war.war">
+      <element id="artifact" artifact-name="smallApp_demo:war exploded" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/smallApp_demo_war/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

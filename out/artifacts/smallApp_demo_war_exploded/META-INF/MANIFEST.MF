@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: springboot-mybatis-demo
+Implementation-Version: 0.1.0
+Built-By: Z0522
+Implementation-Vendor-Id: com.wx.smallApp
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_131
+Main-Class: ${start-class}
+
