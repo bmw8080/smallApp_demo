@@ -1,0 +1,53 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "xyBuyerbankAccount": "兴业银行（厦门）文滨支行 129910101100000979",
+      "xyBuyername": "厦门烟草工业有限责任公司",
+      "xyBuyertaxcode": "91350200155016357A",
+      "xyBuyertel": "福建厦门海沧新阳工业区新阳路1号  0592-6536085",
+      "xyId": 4,
+      "xyInvoiceCash": 4845.28,
+      "xyInvoiceCode": "3502182130",
+      "xyInvoiceFlownum": "",
+      "xyInvoiceNum": "5190853",
+      "xyInvoiceTax": 290.72,
+      "xyInvoiceTotal": 5136.0,
+      "xyInvoiceType": "专用发票",
+      "xyNote": "",
+      "xyOdate": "2018-08-28",
+      "xyPeople": "",
+      "xyR": "否",
+      "xyRdate": "2018-08-28",
+      "xySalerbankaccount": "工商银行报业支行  4100025129200056789",
+      "xySalername": "厦门报业传媒集团有限公司",
+      "xySalertaxcode": "91350200MA3461BK5X",
+      "xySalertel": "厦门市思明区吕岭路122号报业大厦1楼 5581508",
+      "xyV": "N"
+    },
+    {
+      "xyBuyerbankAccount": "",
+      "xyBuyername": "个人",
+      "xyBuyertaxcode": "",
+      "xyBuyertel": "",
+      "xyId": 5,
+      "xyInvoiceCash": 0.21,
+      "xyInvoiceCode": "035021700111",
+      "xyInvoiceFlownum": "",
+      "xyInvoiceNum": "43823788",
+      "xyInvoiceTax": 0.03,
+      "xyInvoiceTotal": 0.24,
+      "xyInvoiceType": "电子普通发票",
+      "xyNote": "",
+      "xyOdate": "2018-08-23",
+      "xyPeople": "",
+      "xyR": "否",
+      "xyRdate": "2018-08-23",
+      "xySalerbankaccount": "中国农业银行股份有限公司厦门同安支行 40390001040044071",
+      "xySalername": "厦门京东东和贸易有限公司",
+      "xySalertaxcode": "91350212MA34A9L25L",
+      "xySalertel": "厦门市同安区集安路555-563号6#楼（配套用房）103室 66215500",
+      "xyV": "N"
+    }
+  ]
+}

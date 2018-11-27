@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        //h5新标签兼容写法
+        var html5Tags = ['header', 'footer', 'article', 'nav', 'section', 'aside']
+        for (var i = 0; i < html5Tags.length; i++) {
+            document.createElement(html5Tags[i]);
+        }
+
+    </script>
+    <!--    使用IE条件注释来调用这个js文件，这样像FireFox等非IE浏览器就会忽视这段代码，也就不会有无谓的http请求了。-->
+    <!--[if lte IE 9]>
+     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+     <![endif]-->
+
+    <script language="javascript" type="text/javascript" src="js/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
+    <!--    <script language="javascript" type="text/javascript" src="js/jquery-3.2.1.min%20.js"></script>-->
+    <script language="javascript" type="text/javascript" src="js/tax.js"></script>
+    <link href="css/taxinput.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div id=div0>
+        <header>
+            <nav style="color:white">厦烟税务发票录入与查重系统</nav>
+            <img src="images/logo.png" />
+        </header>
+
+        <!--        录入数据的各种文本框-->
+        <aside>
+            <table id="input_table" border="0" cellpadding="0" ;>
+                <form id="fileform1" enctype="multipart/form-data" action="file_upload.do" method="post">
+                    <th colspan="2">
+                        <h2>欢迎使用发票录入与查重系统</h2>
+                    </th>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td>流水号&emsp;: <input type="text" name="xy_invoice_flownum " class="xy_invoice_flownum"></td>
+                        <td>发票种类:
+                            <select name="xy_invoice_type" class="xy_invoice_type">
+
+                                <option value="1" selected="selected">普通发票</option>
+                                <option value="2">专用发票</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>发票代码: <input type="text" name="xy_invoice_code " class="xy_invoice_code" required="required"></td>
+                        <td>发票号码: <input type="text" name="xy_invoice_num" class="xy_invoice_num" required="required"></td>
+                    </tr>
+
+                    <tr>
+                        <td>发票金额: <input type="text" name="xy_invoice_cash" class="xy_invoice_cash" value="0"></td>
+                        <td>报销人&emsp;: <input type="text" name="xy_people" class="xy_people"></td>
+                    </tr>
+
+                    <tr>
+
+                        <td>开票日期: <input type="date" name="xy_odate" class="xy_odate"></td>
+
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td><input type="button" id="add_btn" value="添加"></td>
+                        <!--  重新输入的按钮，清空输入框中的所有数据-->
+                        <td> <input type="reset" id="res_btn" value="重新输入" /></td>
+                    </tr>
+                </form>
+            </table>
+        </aside>
+
+
+        <!--        录入数据的集中展示在以下表格中-->
+        <section>
+            <table id="show_tab" style=" text-align:center;">
+                <thead>
+                    <tr id="t1">
+                        <th>流水号</th>
+                        <th>发票代码</th>
+                        <th>发票号码</th>
+                        <th>发票金额</th>
+                        <th>报销人</th>
+                        <th>开票日期</th>
+                        <th>发票种类</th>
+                        <th>是否删除</th>
+                    </tr>
+                </thead>
+                <tbody id=add_tr>
+
+
+                </tbody>
+            </table>
+            <div style="text-align:right; position:relative;top:30px;right:50px">
+                <input type="button" value="清空表格" class="empty_btn" />
+                <input type="button" id="excelbtn1" value="批量上传" class="comment" />
+            </div>
+        </section>
+
+
+        <!--       将传入的excel批量变成Jason格式-->
+        <footer>
+            <table width="100%" border="0" cellpadding="0">
+                <form id="fileform2" enctype="multipart/form-data" action="file_upload.do" method="post">
+                    <fieldset style=" width:100% ;margin:0 auto;text-align:center;">
+                        <legend>请上传税务excel表，完成发票信息的批量导入！</legend>
+                        <input type="file" onchange="importf(this)" />
+                        <div id="demo"></div>
+                        <input type="submit" id="excelbtn2" value="上传" />
+                    </fieldset>
+                </form>
+
+            </table>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+/*作者：xxq*/
+		* {
+		    margin: 0;
+		    padding: 0;
+		}
+
+
+		html {
+		    height: 100%;
+		    width: 100%;
+		}
+
+		body {
+		    font-family: "微软雅黑";
+		    /*min-height: 95%;*/
+		    width: 100%;
+		}
+		.nav-bar {
+		    padding-top: 20px;
+		    padding-left: 20px;
+		    padding-right: 20px;
+		}
+
+		button i.glyphicon {
+		    margin-right: 4px;
+		}
+
+		table.table th {
+		    word-break: keep-all;
+		    white-space: nowrap;
+		}
+
+		#div0 {
+
+		    width: 100%;
+		    height: auto;
+		}
+
+		header {
+		    height: 150px;
+		    width: 100%
+		}
+
+		nav {
+		    background: rgb(69, 177, 155);
+		    clear: left;
+		    width: 100%;
+		    height: 35px;
+		    position: absolute;
+		    margin-top: 80px;
+		}
+
+		.img {
+		    position: absolute;
+		    margin-top: 5px;
+		}
+
+		aside {
+
+		    height: 45%;
+		    width: 40%;
+		    float: left;
+		}
+
+		footer {
+		    /*
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: white;
+*/
+		    width: 100%;
+		    height: auto;
+			background:#dce9f9;
+			position:absolute;
+			margin-top: 450px;
+		}
+
+		section {
+
+		    width: 60%;
+		    height: auto;
+		    float: left;
+		}
+
+
+		body {
+
+		    background: url(../images/taxbg.png) center top no-repeat;
+		    background-size: 100% 150px;
+		    overflow-y: scroll;
+		    overflow-x: hidden;
+		}
+
+
+		#background {
+		    position: absolute;
+		    z-index: -1;
+		    width: 100%;
+		    height: 22%;
+		    top: 0;
+		    left: 0;
+
+		}
+
+		/*        手动录入的上传按钮*/
+		#excelbtn1 {
+		    background-color: rgb(69, 177, 155);
+		    width: 76px;
+		    height: 36px;
+		    color: #FFFFFF;
+			position:absolute;
+		    right: 200px;
+		    top: 200px;
+		    border-radius: 8px;
+
+		}
+		#excel_emp,
+		.empty_btn {
+		    background-color: LightCoral;
+		    width: 76px;
+		    height: 36px;
+		    color: black;
+		    border-radius: 8px;
+		}
+
+		#excelbtn2 {
+		    background-color: rgb(69, 177, 155);
+		    width: 76px;
+		    height: 36px;
+		    color: #FFFFFF;
+		    border-radius: 8px;
+
+		}
+
+		#add_btn {
+		    background-color: rgb(69, 177, 155);
+		    width: 70px;
+		    height: 36px;
+		    color: black;
+		    border-radius: 8px;
+		}
+
+		#res_btn {
+		    background-color: WhiteSmoke;
+		    width: 70px;
+		    height: 36px;
+		    color: black;
+		    border-radius: 8px;
+		}
+
+		th {
+		    text-align: center;
+		}
+
+		/*  输入框之间的行距提高*/
+		#input_table {
+		    border-collapse: separate;
+		    border-spacing: 10px;
+
+		}
+
+		input[type=text],
+		.xy_invoice_type,
+		.xy_odate {
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    box-shadow: 0.5px 0.5px 1px #000 inset;
+		    -moz-box-shadow: 0.5px 0.5px 1px #000 inset;
+		    -webkit-box-shadow: 0.5px 0.5px 1px #000 inset;
+		    width: 150px;
+		    height: 25px;
+		}
+		input.form-control{
+			width: 300px;
+			height: 34px;
+		}
+
+		/*       将输入框的内容显示在table中*/
+
+
+		/*以下为前端显示表格的样式*/
+table.table.table-bordered,
+		#show_tab {
+		    *border-collapse: collapse;
+		    /* IE7 and lower */
+		    border-spacing: 0;
+		    width: 100%;
+		    text-align: center;
+		}
+table.table.table-bordered,
+		#show_tab {
+		    border: solid #ccc 1px;
+		    -moz-border-radius: 6px;
+		    -webkit-border-radius: 6px;
+		    border-radius: 6px;
+		    -webkit-box-shadow: 0 1px 1px #ccc;
+		    -moz-box-shadow: 0 1px 1px #ccc;
+		    box-shadow: 0 1px 1px #ccc;
+		}
+
+table.table.table-bordered tr:hover ,
+		#show_tab tr:hover {
+		    background: #fbf8e9;
+		    -o-transition: all 0.1s ease-in-out;
+		    -webkit-transition: all 0.1s ease-in-out;
+		    -moz-transition: all 0.1s ease-in-out;
+		    -ms-transition: all 0.1s ease-in-out;
+		    transition: all 0.1s ease-in-out;
+		}
+table.table.table-bordered td,
+table.table.table-bordered th,
+		#show_tab td,
+		#show_tab th {
+		    border-left: 1px solid #ccc;
+		    border-top: 1px solid #ccc;
+		    padding: 5px;
+		    text-align: left;
+		}
+
+table.table.table-bordered th,
+		#show_tab th {
+		    background-color: #dce9f9;
+		    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+		    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+		    background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+		    background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+		    background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+		    background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+		    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+		    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+		    box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+		    border-top: none;
+		    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+		}
+table.table.table-bordered tbody{
+	background-color: white;
+}
+table.table.table-bordered td:first-child,
+table.table.table-bordered th:first-child,
+		#show_tab td:first-child,
+		#show_tab th:first-child {
+		    border-left: none;
+		}
+table.table.table-bordered th:first-child,
+		#show_tab th:first-child {
+		    -moz-border-radius: 6px 0 0 0;
+		    -webkit-border-radius: 6px 0 0 0;
+		    border-radius: 6px 0 0 0;
+		}
+
+
+table.table.table-bordered th:last-child,
+		#show_tab th:last-child {
+		    -moz-border-radius: 0 6px 0 0;
+		    -webkit-border-radius: 0 6px 0 0;
+		    border-radius: 0 6px 0 0;
+		}
+table.table.table-bordered th:only-child ,
+		#show_tab th:only-child {
+		    -moz-border-radius: 6px 6px 0 0;
+		    -webkit-border-radius: 6px 6px 0 0;
+		    border-radius: 6px 6px 0 0;
+		}
+table.table.table-bordered tr:last-child td:first-child,
+		#show_tab tr:last-child td:first-child {
+		    -moz-border-radius: 0 0 0 6px;
+		    -webkit-border-radius: 0 0 0 6px;
+		    border-radius: 0 0 0 6px;
+		}
+table.table.table-bordered tr:last-child td:last-child,
+		#show_tab tr:last-child td:last-child {
+		    -moz-border-radius: 0 0 6px 0;
+		    -webkit-border-radius: 0 0 6px 0;
+		    border-radius: 0 0 6px 0;
+		}
