@@ -36,7 +36,7 @@ spring:
     #热部署监听配置
     devtools:
       restart:
-        enabled: true
+        enabled: false
         additional-paths: src/main/resources/templates
 
     #freemarker模版配置
