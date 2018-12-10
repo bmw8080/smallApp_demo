@@ -6,6 +6,10 @@ import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
+=======
+import json.body.VisiableThreadPoolTaskExecutor;
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -15,6 +19,10 @@ import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -88,6 +96,10 @@ public class SpringConfiguration {
 
     @Configuration
     @Slf4j
+<<<<<<< HEAD
+=======
+    @Component
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     static class AsyncTaskConfig implements AsyncConfigurer {
         /**
          * ThredPoolTaskExcutor的处理流程 当池子大小小于corePoolSize，就新建线程，并处理请求
@@ -96,6 +108,7 @@ public class SpringConfiguration {
          * 当池子的线程数大于corePoolSize时，多余的线程会等待keepAliveTime长时间，如果无请求可处理就自行销毁
          */
         @Override
+<<<<<<< HEAD
         @Bean
         public Executor getAsyncExecutor() {
             ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
@@ -113,6 +126,25 @@ public class SpringConfiguration {
             taskExecutor.initialize();
             log.info("线程池初始化完成...");
             return taskExecutor;
+=======
+        @Bean(name = "asyncExecutor")
+        public Executor getAsyncExecutor() {
+            ThreadPoolTaskExecutor executor = new VisiableThreadPoolTaskExecutor();
+            // 最小线程数(核心线程数)
+            executor.setCorePoolSize(5);
+            // 最大线程数
+            executor.setMaxPoolSize(10);
+            // 等待队列(队列最大长度)
+            executor.setQueueCapacity(25);
+            // 线程池维护线程所允许的空闲时间 ，单位s
+            executor.setKeepAliveSeconds(5);
+            // 线程池对拒绝任务(无线程可用)的处理策略
+            executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
+            executor.initialize();
+            log.info("线程池初始化完成...");
+            return executor;
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         }
 
         /**

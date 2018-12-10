@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+<<<<<<< HEAD
 /**
  * @author Z0522
  */
+=======
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 @Controller
 @RequestMapping("th")
 public class ThymeleafController{

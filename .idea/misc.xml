@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+<<<<<<< HEAD
+=======
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="JS_1_7" />
+  </component>
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

@@ -69,15 +69,27 @@
         from invoice
         where (xy_invoice_code,xy_invoice_num) in (${inAreaOfCodeAndNum})
     </select>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <select id="selectAllInvoice" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from invoice
     </select>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from invoice
         where xy_id = #{xyId,jdbcType=INTEGER}
     </delete>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <insert id="insert" parameterType="json.model.Invoice">
         insert into invoice (xy_id, xy_invoice_code, xy_invoice_num,
                              xy_invoice_flownum, xy_invoice_cash, xy_invoice_tax,
@@ -157,6 +169,10 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <insert id="insertSelective" parameterType="json.model.Invoice">
         insert into invoice
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -292,6 +308,10 @@
             </if>
         </trim>
     </insert>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <update id="updateByPrimaryKeySelective" parameterType="json.model.Invoice">
         update invoice
         <set>
@@ -361,6 +381,10 @@
         </set>
         where xy_id = #{xyId,jdbcType=INTEGER}
     </update>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     <update id="updateByPrimaryKey" parameterType="json.model.Invoice">
         update invoice
         set xy_invoice_code      = #{xyInvoiceCode,jdbcType=VARCHAR},

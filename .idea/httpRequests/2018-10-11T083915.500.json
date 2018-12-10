@@ -1,0 +1,11 @@
+{
+  "code": 200,
+  "data": {
+    "timestamp": "2018-10-11",
+    "status": 500,
+    "error": "Internal Server Error",
+    "exception": "com.alibaba.fastjson.JSONException",
+    "message": "not close json text, token : {",
+    "path": "/xytax/json"
+  }
+}

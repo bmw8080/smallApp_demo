@@ -4,7 +4,11 @@ server:
 spring:
     datasource:
         name: mydb
+<<<<<<< HEAD
         url: jdbc:mysql://localhost/xytax?characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+=======
+        url: jdbc:mysql://172.16.20.220/xyinvoice?characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         username: root
         password: root
         # 使用druid数据源
@@ -37,7 +41,11 @@ spring:
     devtools:
       restart:
         enabled: true
+<<<<<<< HEAD
         additional-paths: src/main/java/json,src/main/resources/templates
+=======
+        additional-paths: src/main/resources/templates
+>>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 
     #freemarker模版配置
     #freemarker:
