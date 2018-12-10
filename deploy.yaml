@@ -65,7 +65,7 @@ spec:
         # 这里使用Jenkins的内置变量用作滚动更新的版本
         # 参见：https://snz1.cn/jenkins/env-vars.html
         # 注意及时清理docker库中不需要的。
-        image: repo.docker:2008/xyinvoice/xyinvoice:${GIT_COMMIT}
+        image: repo.docker:2008/xyinvoice/demo:${GIT_COMMIT}
         imagePullPolicy: IfNotPresent
         # 定义对外服务的端口（参见SptringBoot中的application.properties配置文件）
         ports:
