@@ -1,5 +1,5 @@
 # 引入openjdk8镜像
-FROM docker.io/openjdk
+FROM gitlab.snz1.cn:2008/devops/java8-springboot-app:1.0
 
 # 设置维护人员信息
 MAINTAINER gjh31720@fjtic.cn

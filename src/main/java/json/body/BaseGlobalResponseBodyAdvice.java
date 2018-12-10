@@ -1,10 +1,7 @@
 package json.body;
 
 import com.google.common.collect.ImmutableSet;
-<<<<<<< HEAD
-=======
 import json.model.ReturnJsonBody;
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -41,11 +38,7 @@ public class BaseGlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> 
         }
         //当类型 是属于需要处理的时候 并且 obj不是ReturnJsonBody的时候 进行格式化处理
         if (obj == null || !(obj instanceof ReturnJsonBody)) {
-<<<<<<< HEAD
-            obj = new ReturnJsonBody(200, obj);
-=======
             obj = new ReturnJsonBody(200,obj);
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         }
 
         return obj;

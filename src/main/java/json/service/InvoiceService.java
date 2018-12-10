@@ -20,11 +20,7 @@ public interface InvoiceService {
     List<Invoice> checkRepeat(List<Invoice> receptInvoiceList);
 
 
-<<<<<<< HEAD
-    List<Invoice> queryDate(String beginDate, String endDate);
-=======
     List<Invoice> queryDate(String beginDate, String endDate,int page,int limit);
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 }
 
 

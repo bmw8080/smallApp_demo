@@ -3,24 +3,6 @@ package json.Controller;
 import com.alibaba.fastjson.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import json.model.Invoice;
-<<<<<<< HEAD
-import json.service.AsyncService;
-import json.service.InvoiceService;
-
-import json.task.AsyncTask;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.Semaphore;
-=======
 import json.service.InvoiceService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
 
 /**
  * @author Z0522
@@ -38,51 +19,6 @@ import java.util.*;
 
 public class InvoiceController {
 
-<<<<<<< HEAD
-
-    @Autowired
-    private InvoiceService invoiceService;
-
-    //定义资源的总数量
-    Semaphore semaphore = new Semaphore(1);
-
-    //查询总表
-    @ResponseBody
-    @RequestMapping(value = "/all", produces = {"application/json;charset=UTF-8"})
-    public Object Query() {
-        int availablePermits = semaphore.availablePermits();//可用资源数
-        if(availablePermits>0){
-            System.out.println("同步请求开始");
-            System.out.println("------------------------------------------------------");
-            System.out.println("抢到资源");
-            System.out.println("------------------------------------------------------");
-        }else{
-            System.out.println("资源已被占用，稍后再试");
-            System.out.println("------------------------------------------------------");
-            Map<String,String> map = new HashMap<String, String>();
-            map.put("同步请求：","资源被占用，请稍后再试");
-            return map;
-        }
-        try {
-            semaphore.acquire(1);  //请求占用一个资源
-            System.out.println("正在执行");
-            Thread.sleep(500);//可以设置放大资源占用时间，便于观察
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }finally{
-            semaphore.release(1);//释放一个资源
-        }
-        return invoiceService.Query();
-    }
-
-    //物理分页
-    @ResponseBody
-    @RequestMapping(value = "/test/{a}/{b}", produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
-    public Object test(@PathVariable("a") String pageNum, @PathVariable("b") String pageSize) {
-        System.out.println(pageNum+pageSize);
-        return null;
-    }
-=======
     @Autowired
     private InvoiceService invoiceService;
 
@@ -92,7 +28,6 @@ public class InvoiceController {
     public List<Invoice> Query() {
         return invoiceService.Query();
     }
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
     //物理分页
     @ResponseBody
     @RequestMapping(value = "/all/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
@@ -104,15 +39,9 @@ public class InvoiceController {
     //查找日期范围
     @ResponseBody
     @RequestMapping(value = "/distinct", produces = {"application/json;charset=UTF-8"})
-<<<<<<< HEAD
-    public Object distinct(@RequestBody JSONArray params) {
-        SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String TimeString = time.format(new java.util.Date());
-=======
     public List<Invoice> distinct(@RequestBody JSONArray params) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String TimeString = time.format(new Date());
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         System.out.println(TimeString);
         System.out.println("执行开始");
         System.out.println("------------------------------------------------------");
@@ -120,54 +49,14 @@ public class InvoiceController {
         System.out.println("------------------------------------------------------");
         String beginDate = new String();
         String endDate = new String();
-<<<<<<< HEAD
-        int availablePermits = semaphore.availablePermits();//可用资源数
-        if(availablePermits>0){
-            System.out.println("同步请求开始");
-            System.out.println("------------------------------------------------------");
-            System.out.println("抢到资源");
-            System.out.println("------------------------------------------------------");
-        }else{
-            System.out.println("资源已被占用，稍后再试");
-            System.out.println("------------------------------------------------------");
-            Map<String,String> map = new HashMap<String, String>();
-            map.put("同步请求：","资源被占用，请稍后再试");
-            return map;
-        }
-        try {
-            semaphore.acquire(1);  //请求占用一个资源
-            System.out.println("正在执行");
-/*            Thread.sleep(500);//可以设置放大资源占用时间，便于观察*/
-=======
         int page = 0;
         int limit = 0;
         try {
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
             for (int i = 0; i < params.size(); i++) {
                 //用来决定Json对象要循环几次解析
                 JSONObject jsonObj = params.getJSONObject(i);
                 beginDate = jsonObj.getString("xyBeginDate");
                 endDate = jsonObj.getString("xyEndDate");
-<<<<<<< HEAD
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }finally{
-            semaphore.release(1);//释放一个资源
-        }
-        return invoiceService.queryDate(beginDate,endDate);
-
-    }
-
-    //成组解析
-
-    @ResponseBody
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @RequestMapping(value = "/json", produces = "application/json;charset=UTF-8")
-    public Object json(@RequestBody JSONArray params) {
-        SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String TimeString = time.format(new java.util.Date());
-=======
 
                 try {
                     page = jsonObj.getInteger("page");
@@ -193,7 +82,6 @@ public class InvoiceController {
     public List<Invoice> json(@RequestBody JSONArray params) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String TimeString = time.format(new Date());
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         System.out.println(TimeString);
         System.out.println("执行开始");
         System.out.println("------------------------------------------------------");
@@ -201,91 +89,6 @@ public class InvoiceController {
         System.out.println("------------------------------------------------------");
         //定义一个list对象来存放实体对象
         List<Invoice> receptInvoiceList = new ArrayList();
-<<<<<<< HEAD
-        int availablePermits = semaphore.availablePermits();//可用资源数
-        if(availablePermits>0){
-            System.out.println("同步请求开始");
-            System.out.println("------------------------------------------------------");
-            System.out.println("抢到资源");
-            System.out.println("------------------------------------------------------");
-        }else{
-            System.out.println("资源已被占用，稍后再试");
-            System.out.println("------------------------------------------------------");
-            Map<String,String> map = new HashMap<String, String>();
-            map.put("同步请求：","资源被占用，请稍后再试");
-            return map;
-        }
-        try {
-            semaphore.acquire(1);  //请求占用一个资源
-            System.out.println("正在执行");
-            Thread.sleep(500);//可以设置放大资源占用时间，便于观察
-            for (int i = 0; i < params.size(); i++) {
-                try {
-                    Invoice tempInvoice = new Invoice();//定义一个实体对象来存入JsonArray，放这里主要很吃内存，但是可以实现数组存入
-                    JSONObject jsonObj = params.getJSONObject(i);//用来决定Json对象要循环几次解析
-                    //把json的数据放进实体对象中
-                    tempInvoice.setXyId(jsonObj.getInteger("xyId"));
-                    tempInvoice.setXyInvoiceCode(jsonObj.getString("xyInvoiceCode"));
-                    tempInvoice.setXyInvoiceNum(jsonObj.getString("xyInvoiceNum"));
-                    tempInvoice.setXyInvoiceFlownum(jsonObj.getString("xyInvoiceFlownum"));
-                    //判断浮点是否为空
-                    try {
-                        Float cash = jsonObj.getFloat("xyInvoiceCash");
-                        if (cash != null) {
-                            tempInvoice.setXyInvoiceCash(cash);
-                        } else {
-                            tempInvoice.setXyInvoiceCash((float) 0);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        Float tax = jsonObj.getFloat("xyInvoiceTax");
-                        if (tax != null) {
-                            tempInvoice.setXyInvoiceTax(tax);
-                        } else {
-                            tempInvoice.setXyInvoiceTax((float) 0);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        Float total = jsonObj.getFloat("xyInvoiceTotal");
-                        if (total != null) {
-                            tempInvoice.setXyInvoiceTotal(total);
-                        } else {
-                            tempInvoice.setXyInvoiceTotal((float) 0);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    tempInvoice.setXyInvoiceType(jsonObj.getString("xyInvoiceType"));
-                    tempInvoice.setXyNote(jsonObj.getString("xyNote"));
-                    tempInvoice.setXyBuyername(jsonObj.getString("xyBuyername"));
-                    tempInvoice.setXyBuyertaxcode(jsonObj.getString("xyBuyertaxcode"));
-                    tempInvoice.setXyBuyerbankAccount(jsonObj.getString("xyBuyerbankAccount"));
-                    tempInvoice.setXyBuyertel(jsonObj.getString("xyBuyertel"));
-                    tempInvoice.setXySalertaxcode(jsonObj.getString("xySalertaxcode"));
-                    tempInvoice.setXySalername(jsonObj.getString("xySalername"));
-                    tempInvoice.setXySalertel(jsonObj.getString("xySalertel"));
-                    tempInvoice.setXySalerbankaccount(jsonObj.getString("xySalerbankaccount"));
-                    tempInvoice.setXyOdate(jsonObj.getString("xyOdate"));
-                    tempInvoice.setXyV(jsonObj.getString("xyV"));
-                    tempInvoice.setXyR(jsonObj.getString("xyR"));
-                    tempInvoice.setXyPeople(jsonObj.getString("xyPeople"));
-                    tempInvoice.setXyRdate(jsonObj.getString("xyRdate"));
-                    tempInvoice.setXyInputDate(TimeString);
-                    receptInvoiceList.add(tempInvoice);//依次把实体对象的数据，添加进list对象，形成表单
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }finally{
-            semaphore.release(1);//释放一个资源
-=======
 
         for (int i = 0; i < params.size(); i++) {
             try {
@@ -360,7 +163,6 @@ public class InvoiceController {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         }
         return invoiceService.checkRepeat(receptInvoiceList);
     }
@@ -371,11 +173,7 @@ public class InvoiceController {
     @RequestMapping(value = "/cnjson", produces = "application/json;charset=UTF-8")
     public List<Invoice> cnjson(@RequestBody JSONArray params) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-<<<<<<< HEAD
-        String TimeString = time.format(new java.util.Date());
-=======
         String TimeString = time.format(new Date());
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         System.out.println(TimeString);
         System.out.println("执行开始");
         System.out.println("------------------------------------------------------");
@@ -441,11 +239,7 @@ public class InvoiceController {
     @RequestMapping(value = "/smalljson", produces = "application/json;charset=UTF-8")
     public List<Invoice> smalljson(@RequestBody JSONArray smallParams) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-<<<<<<< HEAD
-        String TimeString = time.format(new java.util.Date());
-=======
         String TimeString = time.format(new Date());
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         System.out.println(TimeString);
         System.out.println("执行开始");
         System.out.println("------------------------------------------------------");
@@ -461,26 +255,17 @@ public class InvoiceController {
                 Invoice tempInvoice = new Invoice();
                 //用来决定Json对象要循环几次解析
                 JSONObject jsonObj = smallParams.getJSONObject(i);
-<<<<<<< HEAD
-=======
 
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
                 //把json的数据放进实体对象中
                 tempInvoice.setXyId(jsonObj.getInteger("xyId"));
                 tempInvoice.setXyInvoiceCode(jsonObj.getString("xyInvoiceCode"));
                 tempInvoice.setXyInvoiceNum(jsonObj.getString("xyInvoiceNum"));
                 tempInvoice.setXyInvoiceFlownum(jsonObj.getString("xyInvoiceFlownum"));
-<<<<<<< HEAD
-                tempInvoice.setXyInvoiceCash(jsonObj.getFloat("xyInvoiceCash"));
-                tempInvoice.setXyInvoiceTax(jsonObj.getFloat("xyInvoiceTax"));
-                tempInvoice.setXyInvoiceTotal(jsonObj.getFloat("xyInvoiceTotal"));
-=======
 
                 tempInvoice.setXyInvoiceCash(jsonObj.getFloat("xyInvoiceCash"));
                 tempInvoice.setXyInvoiceTax(jsonObj.getFloat("xyInvoiceTax"));
                 tempInvoice.setXyInvoiceTotal(jsonObj.getFloat("xyInvoiceTotal"));
 
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
                 tempInvoice.setXyInvoiceType(jsonObj.getString("xyInvoiceType"));
                 tempInvoice.setXyNote(jsonObj.getString("xyNote"));
                 tempInvoice.setXyBuyername(jsonObj.getString("xyBuyername"));
@@ -491,16 +276,6 @@ public class InvoiceController {
                 tempInvoice.setXySalername(jsonObj.getString("xySalername"));
                 tempInvoice.setXySalertel(jsonObj.getString("xySalertel"));
                 tempInvoice.setXySalerbankaccount(jsonObj.getString("xySalerbankaccount"));
-<<<<<<< HEAD
-                tempInvoice.setXyOdate(jsonObj.getString("xyOdate"));
-                tempInvoice.setXyV(jsonObj.getString("xyV"));
-                tempInvoice.setXyR(jsonObj.getString("xyR"));
-                tempInvoice.setXyPeople(jsonObj.getString("xyPeople"));
-                tempInvoice.setXyRdate(jsonObj.getString("xyRdate"));
-                tempInvoice.setXyInputDate(TimeString);
-                //依次把实体对象的数据，添加进list对象，形成表单
-                smallAppFirstResult.add(tempInvoice);
-=======
 
                 tempInvoice.setXyOdate(jsonObj.getString("xyOdate"));
 
@@ -515,20 +290,11 @@ public class InvoiceController {
                 //依次把实体对象的数据，添加进list对象，形成表单
                 smallAppFirstResult.add(tempInvoice);
 
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-<<<<<<< HEAD
-        //执行将参数表单通过接口方法传入service层，实现方法后，返回list对象出来
-        List<Invoice> smallAppSecondResult = invoiceService.checkRepeat(smallAppFirstResult);
-        List<Invoice> smallAppThirdResult = new ArrayList<Invoice>();
-        smallAppThirdResult.addAll(smallAppSecondResult);
-        smallAppThirdResult.remove(smallAppFirstResult);
-        try
-=======
 
         //执行将参数表单通过接口方法传入service层，实现方法后，返回list对象出来
 
@@ -543,7 +309,6 @@ public class InvoiceController {
 
         try
 
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         {
             Invoice smallAppTempInvoice = new Invoice();
             ArrayList smallAppFourthResult = new ArrayList<Invoice>();
@@ -564,11 +329,6 @@ public class InvoiceController {
                 //返回这个数组
                 smallAppFinalResult = smallAppFifthResult;
             }
-<<<<<<< HEAD
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-=======
 
         } catch (
                 Exception e)
@@ -578,7 +338,6 @@ public class InvoiceController {
         }
 
 
->>>>>>> b82eb2d4510b17a80f3512b8cb8f1816841371c0
         return smallAppFinalResult;
     }
 }
