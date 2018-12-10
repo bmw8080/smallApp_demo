@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wx.smallApp</groupId>
-    <artifactId>xy_invoice</artifactId>
+    <artifactId>xyinvoice</artifactId>
     <version>0.1.0</version>
 
     <name>springboot-mybatis-demo</name>

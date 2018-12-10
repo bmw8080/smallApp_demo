@@ -1,8 +1,0 @@
-{
-  "timestamp": "2018-09-21",
-  "status": 500,
-  "error": "Internal Server Error",
-  "exception": "java.lang.IllegalStateException",
-  "message": "getWriter() has already been called for this response",
-  "path": "/xytax/distinct"
-}

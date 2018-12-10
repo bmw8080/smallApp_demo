@@ -1,8 +1,0 @@
-{
-  "timestamp": "2018-09-21",
-  "status": 500,
-  "error": "Internal Server Error",
-  "exception": "com.alibaba.fastjson.JSONException",
-  "message": "syntax error, expect [, actual {, pos 0",
-  "path": "/xytax/json"
-}

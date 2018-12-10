@@ -1,8 +1,0 @@
-{
-  "timestamp": "2018-09-21",
-  "status": 500,
-  "error": "Internal Server Error",
-  "exception": "org.mybatis.spring.MyBatisSystemException",
-  "message": "nested exception is org.apache.ibatis.exceptions.PersistenceException: \r\n### Error querying database.  Cause: java.lang.UnsupportedOperationException\r\n### The error may exist in class path resource [mapping/InvoiceMapper.xml]\r\n### The error may involve json.mapper.InvoiceMapper.selectForCheckRepeat\r\n### The error occurred while handling results\r\n### SQL: select                   xy_invoice_code, xy_invoice_num, xy_invoice_flownum, xy_invoice_cash, xy_invoice_tax,         xy_invoice_total, xy_invoice_type, xy_note, xy_buyername, xy_buyertaxcode, xy_buyerbank_account,         xy_buyertel, xy_salertaxcode, xy_salername, xy_salertel, xy_salerbankaccount, xy_odate,         xy_v, xy_r, xy_people, xy_rdate               from invoice         where (xy_invoice_code,xy_invoice_num) in ((3502182130,1054297),(3502182130,1054296),(3500171130,13013323),(3502182130,5190853),(035021700111,43823788),(2321234564,11321231))\r\n### Cause: java.lang.UnsupportedOperationException",
-  "path": "/xytax/json"
-}
