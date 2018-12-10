@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: mydb
-        url: jdbc:mysql://localhost/xytax?characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+        url: jdbc:mysql://172.16.20.220/xyinvoice?characterEncoding=utf8&useSSL=false&allowMultiQueries=true
         username: root
         password: root
         # 使用druid数据源

@@ -20,7 +20,7 @@ spec:
   ports:
   - port: 80
     # 名称定义与POD端口一致
-    name: xy_invoice80
+    name: xy_invoice6060
 
 ---
 
@@ -65,41 +65,12 @@ spec:
         # 这里使用Jenkins的内置变量用作滚动更新的版本
         # 参见：https://snz1.cn/jenkins/env-vars.html
         # 注意及时清理docker库中不需要的。
-        image: repo.docker:2008/demo/xy_invoice:${GIT_COMMIT}
+        image: repo.docker:2008/xy_invoice/xy_invoice:${GIT_COMMIT}
         imagePullPolicy: IfNotPresent
         # 定义对外服务的端口（参见SptringBoot中的application.properties配置文件）
         ports:
-        - containerPort: 80
-          name: xy_invoice80
-        # 存活检测探测
-        livenessProbe:
-          # 检查方式
-          httpGet:
-            # 心跳地址（由SpringBoot自动提供）
-            path: /demo/health
-            # 容器定义的服务端口
-            port: 80
-          # 启动延迟秒数，请根据实际配置
-          initialDelaySeconds: 60
-          # 检测间隔秒数
-          periodSeconds: 10
-          # 超时秒数
-          timeoutSeconds: 6
-          # 错误次数
-          failureThreshold: 3
-          # 成功次数
-          successThreshold: 1
-        # 配置可用侦测，用于滚动更新放行
-        # 此条件达成则自动加入到服务集群中
-        readinessProbe:
-          httpGet:
-            # 心跳地址（由SpringBoot自动提供）
-            path: /demo/health
-            # 容器定义的服务端口
-            port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 3
-        # 资源需求配置
+        - containerPort: 6060
+          name: xy_invoice6060
         resources:
           # 限制资源
           limits:
