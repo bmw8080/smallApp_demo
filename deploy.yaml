@@ -3,24 +3,24 @@ apiVersion: v1
 kind: Service
 metadata:
   # 服务发现名称
-  name: xy_invoice
+  name: xyinvoice
   # 设置默认发布名字空间，必须先在kubernetes集群中先创建。
   # kubectl create ns demo
   namespace: demo
   labels:
     # 定义一致的标签方便管理
-    app: xy_invoice
+    app: xyinvoice
 spec:
-  # 定义选择器，此服务选择标签为“app=xy_invoice”的POD
+  # 定义选择器，此服务选择标签为“app=xyinvoice”的POD
   selector:
-    app: xy_invoice
+    app: xyinvoice
   # 准备通过网关发布，因此使用集群负载IP
   type: ClusterIP
   # 定义负载的目标端口
   ports:
   - port: 80
     # 名称定义与POD端口一致
-    name: xy_invoice6060
+    name: xyinvoice6060
 
 ---
 
@@ -28,19 +28,19 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: xy_invoice
+  name: xyinvoice
   # 设置默认发布名字空间，与服务发现定义一致
   namespace: demo
   labels:
     # 定义一致的标签方便管理
-    app: xy_invoice
+    app: xyinvoice
 spec:
   # 副本数量，生产环境请设置3个以上。
   replicas: 1
   selector:
     # 定义匹配的POD资源标签，请保持与template中的定义一致
     matchLabels:
-      app: xy_invoice
+      app: xyinvoice
   strategy:
     # 设置为滚动更新模式
     type: RollingUpdate
@@ -57,20 +57,20 @@ spec:
     metadata:
       labels:
         # 定义归档标签
-        app: xy_invoice
+        app: xyinvoice
     spec:
       containers:
-      - name: xy_invoice
+      - name: xyinvoice
         # Docker镜像地址
         # 这里使用Jenkins的内置变量用作滚动更新的版本
         # 参见：https://snz1.cn/jenkins/env-vars.html
         # 注意及时清理docker库中不需要的。
-        image: repo.docker:2008/xy_invoice/xy_invoice:${GIT_COMMIT}
+        image: repo.docker:2008/xyinvoice/xyinvoice:${GIT_COMMIT}
         imagePullPolicy: IfNotPresent
         # 定义对外服务的端口（参见SptringBoot中的application.properties配置文件）
         ports:
         - containerPort: 6060
-          name: xy_invoice6060
+          name: xyinvoice6060
         resources:
           # 限制资源
           limits:
