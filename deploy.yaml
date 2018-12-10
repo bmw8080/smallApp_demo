@@ -18,7 +18,7 @@ spec:
   type: ClusterIP
   # 定义负载的目标端口
   ports:
-  - port: 80
+  - port: 6060
     # 名称定义与POD端口一致
     name: xyinvoice6060
 
@@ -70,7 +70,6 @@ spec:
         # 定义对外服务的端口（参见SptringBoot中的application.properties配置文件）
         ports:
         - containerPort: 6060
-          hostPort: 80
           name: xyinvoice6060
         resources:
           # 限制资源
