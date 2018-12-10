@@ -1,0 +1,217 @@
+ nav {
+     background: rgb(69, 177, 155);
+     clear: left;
+     width: 100%;
+     height: 35px;
+     position: absolute;
+     margin-top: 80px;
+ }
+
+ #div0 {
+     height: 1200px;
+     width: 100%
+ }
+
+ header {
+     height: 150px;
+     width: 100%
+ }
+
+ aside {
+
+     height: 45%;
+     width: 40%;
+     float: left;
+ }
+
+ footer {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     background: white;
+     width: 100%
+ }
+
+ section {
+
+     width: 60%;
+     height: auto;
+     float: left;
+ }
+
+
+ body {
+
+     background: url(../images/taxbg.png) center top no-repeat;
+     background-size: 100% 150px;
+     overflow-y: scroll;
+     overflow-x: hidden;
+ }
+
+
+ #background {
+     position: absolute;
+     z-index: -1;
+     width: 100%;
+     height: 22%;
+     top: 0px;
+     left: 0px;
+
+ }
+
+ /*        手动录入的上传按钮*/
+ #excelbtn1 {
+     background-color: rgb(69, 177, 155);
+     width: 76px;
+     height: 36px;
+     color: #FFFFFF position:absolute;
+     right: 200px;
+     top: 200px;
+     border-radius: 8px;
+
+ }
+
+ .empty_btn {
+     background-color: LightCoral;
+     width: 76px;
+     height: 36px;
+     color: black;
+     border-radius: 8px;
+ }
+
+ #excelbtn2 {
+     background-color: rgb(69, 177, 155);
+     width: 76px;
+     height: 36px;
+     color: #FFFFFF;
+     border-radius: 8px;
+
+ }
+
+ #add_btn {
+     background-color: rgb(69, 177, 155);
+     width: 70px;
+     height: 36px;
+     color: black;
+     border-radius: 8px;
+ }
+
+ #res_btn {
+     background-color: WhiteSmoke;
+     width: 70px;
+     height: 36px;
+     color: black;
+     border-radius: 8px;
+ }
+
+ th {
+     text-align: center;
+ }
+
+ /*  输入框之间的行距提高*/
+ #input_table {
+     border-collapse: separate;
+     border-spacing: 10px;
+
+ }
+
+ input[type=text],
+ .xy_invoice_type,
+ .xy_odate {
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     box-shadow: 0.5px 0.5px 1px #000 inset;
+     -moz-box-shadow: 0.5px 0.5px 1px #000 inset;
+     -webkit-box-shadow: 0.5px 0.5px 1px #000 inset;
+     width: 130px;
+     height: 25px;
+ }
+
+ /*       将输入框的内容显示在table中*/
+
+
+ /*以下为前端显示表格的样式*/
+ #show_tab {
+     *border-collapse: collapse;
+     /* IE7 and lower */
+     border-spacing: 0;
+     width: 100%;
+     text-align: center;
+ }
+
+ #show_tab {
+     border: solid #ccc 1px;
+     -moz-border-radius: 6px;
+     -webkit-border-radius: 6px;
+     border-radius: 6px;
+     -webkit-box-shadow: 0 1px 1px #ccc;
+     -moz-box-shadow: 0 1px 1px #ccc;
+     box-shadow: 0 1px 1px #ccc;
+ }
+
+ #show_tab tr:hover {
+     background: #fbf8e9;
+     -o-transition: all 0.1s ease-in-out;
+     -webkit-transition: all 0.1s ease-in-out;
+     -moz-transition: all 0.1s ease-in-out;
+     -ms-transition: all 0.1s ease-in-out;
+     transition: all 0.1s ease-in-out;
+ }
+
+ #show_tab td,
+ #show_tab th {
+     border-left: 1px solid #ccc;
+     border-top: 1px solid #ccc;
+     padding: 5px;
+     text-align: left;
+ }
+
+ #show_tab th {
+     background-color: #dce9f9;
+     background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+     background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+     background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+     background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+     background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+     background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+     -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+     -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+     box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+     border-top: none;
+     text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+ }
+
+ #show_tab td:first-child,
+ #show_tab th:first-child {
+     border-left: none;
+ }
+
+ #show_tab th:first-child {
+     -moz-border-radius: 6px 0 0 0;
+     -webkit-border-radius: 6px 0 0 0;
+     border-radius: 6px 0 0 0;
+ }
+
+ #show_tab th:last-child {
+     -moz-border-radius: 0 6px 0 0;
+     -webkit-border-radius: 0 6px 0 0;
+     border-radius: 0 6px 0 0;
+ }
+
+ #show_tab th:only-child {
+     -moz-border-radius: 6px 6px 0 0;
+     -webkit-border-radius: 6px 6px 0 0;
+     border-radius: 6px 6px 0 0;
+ }
+
+ #show_tab tr:last-child td:first-child {
+     -moz-border-radius: 0 0 0 6px;
+     -webkit-border-radius: 0 0 0 6px;
+     border-radius: 0 0 0 6px;
+ }
+
+ #show_tab tr:last-child td:last-child {
+     -moz-border-radius: 0 0 6px 0;
+     -webkit-border-radius: 0 0 6px 0;
+     border-radius: 0 0 6px 0;
+ }

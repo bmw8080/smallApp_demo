@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Class-Path: spring-boot-starter-freemarker-1.5.6.RELEASE.jar slf4j-api
+ -1.7.25.jar spring-boot-autoconfigure-1.5.6.RELEASE.jar spring-core-4
+ .3.10.RELEASE.jar commons-logging-1.1.1.jar jul-to-slf4j-1.7.25.jar s
+ pring-boot-devtools-1.5.6.RELEASE.jar tomcat-jdbc-8.5.16.jar mysql-co
+ nnector-java-5.1.41.jar unbescape-1.1.0.RELEASE.jar annotations-java5
+ -16.0.3.jar validation-api-1.1.0.Final.jar javassist-3.21.0-GA.jar pa
+ gehelper-5.0.3.jar json-lib-2.4-jdk15.jar logback-core-1.1.11.jar tom
+ cat-juli-8.5.16.jar google-collections-1.0.jar spring-web-4.3.10.RELE
+ ASE.jar jquery-3.1.1.jar thymeleaf-2.1.5.RELEASE.jar spring-tx-4.3.10
+ .RELEASE.jar logback-classic-1.1.11.jar mybatis-spring-boot-autoconfi
+ gure-1.3.0.jar jackson-annotations-2.5.1.jar jconsole.jar lombok-1.16
+ .14.jar spring-expression-4.3.10.RELEASE.jar spring-beans-4.3.10.RELE
+ ASE.jar thymeleaf-spring4-2.1.5.RELEASE.jar spring-boot-starter-web-1
+ .5.6.RELEASE.jar ognl-3.0.8.jar jcl-over-slf4j-1.7.25.jar groovy-2.4.
+ 12.jar jsqlparser-1.0.jar spring-boot-starter-jdbc-1.5.6.RELEASE.jar 
+ jsr305-3.0.1.jar jackson-core-2.5.1.jar xercesImpl-2.11.0.jar spring-
+ boot-starter-1.5.6.RELEASE.jar hibernate-validator-5.3.5.Final.jar sp
+ ring-jdbc-4.3.10.RELEASE.jar snakeyaml-1.17.jar bootstrap-3.3.7.jar m
+ ybatis-spring-1.3.1.jar freemarker-2.3.26-incubating.jar tools.jar th
+ ymeleaf-layout-dialect-1.4.0.jar mybatis-3.4.4.jar xml-apis-1.4.01.ja
+ r druid-spring-boot-starter-1.1.0.jar mybatis-spring-boot-starter-1.3
+ .0.jar spring-boot-1.5.6.RELEASE.jar commons-collections-3.2.2.jar ne
+ kohtml-1.9.22.jar spring-context-support-4.3.10.RELEASE.jar log4j-ove
+ r-slf4j-1.7.25.jar spring-boot-starter-logging-1.5.6.RELEASE.jar jack
+ son-databind-2.5.1.jar jboss-logging-3.3.1.Final.jar spring-webmvc-4.
+ 3.10.RELEASE.jar android-json-0.0.20131108.vaadin1.jar spring-context
+ -4.3.10.RELEASE.jar druid-1.1.0.jar pagehelper-spring-boot-autoconfig
+ ure-1.1.2.jar spring-aop-4.3.10.RELEASE.jar spring-boot-starter-thyme
+ leaf-1.5.6.RELEASE.jar fastjson-1.2.33.jar pagehelper-spring-boot-sta
+ rter-1.1.2.jar ezmorph-1.0.6.jar commons-beanutils-1.9.3.jar commons-
+ lang-2.5.jar classmate-1.3.3.jar
+Main-Class: json.App
+

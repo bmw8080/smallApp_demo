@@ -1,0 +1,74 @@
+server:
+  port: 6060
+
+spring:
+    datasource:
+        name: mydb
+        url: jdbc:mysql://172.16.20.220/xyinvoice?characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+        username: root
+        password: root
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+    #thymeleaf模版配置
+    thymeleaf:
+      cache: false
+      prefix: classpath:/templates/
+      suffix: .html
+      mode: LEGACYHTML5
+      encoding: UTF-8
+      content-type: text/html
+
+    #热部署监听配置
+    devtools:
+      restart:
+        enabled: false
+        additional-paths: src/main/java,src/main/resources/templates
+
+    #freemarker模版配置
+    #freemarker:
+      #cache: false
+      #charset: UTF-8
+      #check-template-location: true
+      #content-type: text/html
+      #expose-request-attributes: true
+      #expose-session-attributes: true
+      #request-context-attribute: request
+      #suffix: .ftl
+      #template-loader-path: classpath:templates/
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapping/InvoiceMapper.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: json.model  # 注意：对应实体类的路径
+
+logging:
+  level:
+    smallApp_demo.src.main.java.json.mapper:DEBUG
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+# spring mvc 视图解析器
+  # mvc:
+    # view:
+      # prefix: /WEB-INF/views
+      # suffix: .jsp
