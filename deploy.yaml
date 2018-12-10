@@ -70,6 +70,7 @@ spec:
         # 定义对外服务的端口（参见SptringBoot中的application.properties配置文件）
         ports:
         - containerPort: 6060
+          hostPort: 80
           name: xyinvoice6060
         resources:
           # 限制资源
