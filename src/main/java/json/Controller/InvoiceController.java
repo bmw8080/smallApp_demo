@@ -102,7 +102,7 @@ public class InvoiceController {
                     JSONObject jsonObj = params.getJSONObject(i);
                     beginDate = jsonObj.getString("xyBeginDate");
                     endDate = jsonObj.getString("xyEndDate");
-
+/*
                     try {
                         page = jsonObj.getInteger("page");
                     } catch (JSONException e) {
@@ -112,7 +112,54 @@ public class InvoiceController {
                         limit = jsonObj.getInteger("limit");
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
+                    }*/
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            semaphore.release(1);//释放一个资源
+        }
+        return invoiceService.queryDate(beginDate, endDate, page, limit);
+    }
+
+    //查找日期范围
+    @ResponseBody
+    @RequestMapping(value = "/distinct/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
+    public Object distinctCut(@RequestBody JSONArray params,@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+        SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String TimeString = time.format(new Date());
+        System.out.println(TimeString);
+        System.out.println("执行开始");
+        System.out.println("------------------------------------------------------");
+        System.out.println("调用接口：查找日期范围带分页");
+        System.out.println("------------------------------------------------------");
+        String beginDate = new String();
+        String endDate = new String();
+        int page = pageNum;
+        int limit = pageSize;
+        int availablePermits = semaphore.availablePermits();//可用资源数
+        if (availablePermits > 0) {
+            System.out.println("抢到资源");
+        } else {
+            System.out.println("资源已被占用，稍后再试");
+            Map<Object,String> map = new HashMap<Object, String>(16);
+            map.put("message","资源已被占用，稍后再试");
+            map.put("time",TimeString);
+            return map;
+        }
+        try {
+            semaphore.acquire(1);  //请求占用一个资源
+            System.out.println("资源正在被使用");
+            Thread.sleep(500);//放大资源占用时间，便于观察
+            try {
+                for (int i = 0; i < params.size(); i++) {
+                    //用来决定Json对象要循环几次解析
+                    JSONObject jsonObj = params.getJSONObject(i);
+                    beginDate = jsonObj.getString("xyBeginDate");
+                    endDate = jsonObj.getString("xyEndDate");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
