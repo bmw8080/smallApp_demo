@@ -40,7 +40,7 @@
         where xy_id = #{xyId,jdbcType=INTEGER}
     </select>
     <!--查总表-->
-    <select id="Query" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="queryAllDate" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from invoice

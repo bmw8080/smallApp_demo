@@ -3,14 +3,14 @@ package json.mapper;
 
 import json.model.Invoice;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 public interface InvoiceMapper {
 
-    List<Invoice> Query();
+    List<Invoice> queryAllDate();
 
     List<Invoice> selectAllInvoice();
 

@@ -141,8 +141,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     //查找总表
     @Override
-    public List<Invoice> Query() {
-        return invoiceMapper.Query();
+    public List<Invoice> query() {
+        return invoiceMapper.queryAllDate();
     }
 
     //单条检查重复并插入

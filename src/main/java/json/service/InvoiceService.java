@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface InvoiceService {
-    List<Invoice> Query();
+    List<Invoice> query();
 
     Invoice addData(Invoice temp);
     

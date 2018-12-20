@@ -56,7 +56,7 @@ public class InvoiceController {
         } finally {
             semaphore.release(1);//释放一个资源
         }
-        return invoiceService.Query();
+        return invoiceService.query();
     }
 
     //物理分页
