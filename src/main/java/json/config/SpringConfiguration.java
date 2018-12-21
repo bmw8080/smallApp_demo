@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import json.body.VisiableThreadPoolTaskExecutor;
+import json.body.WsInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -17,8 +18,20 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import json.service.DemoService;
+import json.service.impl.DemoServiceImpl;
+import org.apache.cxf.Bus;
+import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.cxf.jaxws.EndpointImpl;
+import org.apache.cxf.transport.servlet.CXFServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+
+import javax.xml.ws.Endpoint;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,6 +45,62 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Configurable
 public class SpringConfiguration {
+    //webservice配置类
+
+    @Configuration
+    class CxfConfig {
+
+        /**
+         * 注册一个dispatcherServlet,解决增加ws之后http接口访问不了问题
+         */
+        @Bean
+        public ServletRegistrationBean restServlet(){
+            //注解扫描上下文
+            AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
+            //base package
+            applicationContext.scan("com.json");
+            //通过构造函数指定dispatcherServlet的上下文
+            DispatcherServlet rest_dispatcherServlet = new DispatcherServlet(applicationContext);
+
+            //用ServletRegistrationBean包装servlet
+            ServletRegistrationBean registrationBean = new ServletRegistrationBean(rest_dispatcherServlet);
+            registrationBean.setLoadOnStartup(1);
+            //指定urlmapping
+            registrationBean.addUrlMappings("/*");
+            //指定name，如果不指定默认为dispatcherServlet
+            registrationBean.setName("rest");
+            return registrationBean;
+        }
+
+        @Bean
+        public ServletRegistrationBean dispatcherServlet() {
+            ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new CXFServlet(), "/xyinvoice/*");
+            servletRegistrationBean.setName("webService");
+            return servletRegistrationBean;
+        }
+        @Bean(name = Bus.DEFAULT_BUS_ID)
+        public SpringBus springBus() {
+            return new SpringBus();
+        }
+
+        @Bean
+        public DemoService demoJsonService(){
+            return new DemoServiceImpl();
+        }
+
+        @Bean
+        public Endpoint endpoint() {
+            EndpointImpl endpoint = new EndpointImpl(springBus(), demoJsonService());
+            endpoint.publish("/ws");
+            //add webservice inteceptor
+            endpoint.getInInterceptors().add(new WsInterceptor());
+            return endpoint;
+        }
+    }
+
+
+
+
     //json转json对象
 
     @Configuration
