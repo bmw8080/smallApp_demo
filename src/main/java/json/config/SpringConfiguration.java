@@ -74,7 +74,7 @@ public class SpringConfiguration {
 
         @Bean
         public ServletRegistrationBean dispatcherServlet() {
-            ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new CXFServlet(), "/xyinvoice/*");
+            ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new CXFServlet(), "/demo/*");
             servletRegistrationBean.setName("webService");
             return servletRegistrationBean;
         }
@@ -92,8 +92,7 @@ public class SpringConfiguration {
         public Endpoint endpoint() {
             EndpointImpl endpoint = new EndpointImpl(springBus(), demoJsonService());
             endpoint.publish("/ws");
-            //add webservice inteceptor
-            endpoint.getInInterceptors().add(new WsInterceptor());
+            endpoint.getInInterceptors().add(new WsInterceptor()); //add webservice inteceptor
             return endpoint;
         }
     }
