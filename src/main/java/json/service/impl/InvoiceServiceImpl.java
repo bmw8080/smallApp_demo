@@ -1,5 +1,7 @@
 package json.service.impl;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import json.mapper.InvoiceMapper;
 import json.model.Invoice;
 import json.service.InvoiceService;
@@ -27,8 +29,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     //物理翻页
     @Override
     public List<Invoice> findAllInvoice(int pageNum, int pageSize) {
-        //将参数传给这个方法就可以实现物理分页了，非常简单。
-        PageHelper.startPage(pageNum, pageSize);
+
         return invoiceMapper.selectAllInvoice();
     }
 

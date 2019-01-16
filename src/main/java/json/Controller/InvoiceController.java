@@ -2,6 +2,9 @@ package json.Controller;
 
 import com.alibaba.fastjson.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import json.body.BaseGlobalResponseBodyAdvice;
 import json.model.Invoice;
 import json.service.InvoiceService;
@@ -62,9 +65,17 @@ public class InvoiceController {
     //物理分页
     @ResponseBody
     @RequestMapping(value = "/all/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
-    public Object findAllInvoice(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
-
-        return invoiceService.findAllInvoice(pageNum, pageSize);
+    public Map findAllInvoice(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        Object obj = invoiceService.findAllInvoice(pageNum, pageSize);
+        PageInfo info = new PageInfo(page.getResult());
+        long total = info.getTotal();
+        System.out.println(info);
+        Map map = new HashMap();
+        map.put("data",obj);
+        map.put("total",total);
+        return map;
     }
 
     //查找日期范围
