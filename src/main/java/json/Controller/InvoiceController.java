@@ -6,12 +6,15 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import json.body.BaseGlobalResponseBodyAdvice;
+import json.body.DateUtils;
 import json.model.Invoice;
 import json.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -45,9 +48,9 @@ public class InvoiceController {
             System.out.println("抢到资源");
         } else {
             System.out.println("资源已被占用，稍后再试");
-            Map<Object,String> map = new HashMap<Object, String>(16);
-            map.put("message","资源已被占用，稍后再试");
-            map.put("time",TimeString);
+            Map<Object, String> map = new HashMap<Object, String>(16);
+            map.put("message", "资源已被占用，稍后再试");
+            map.put("time", TimeString);
             return map;
         }
         try {
@@ -73,8 +76,8 @@ public class InvoiceController {
         long total = info.getTotal();
         System.out.println(info);
         Map map = new HashMap();
-        map.put("data",obj);
-        map.put("total",total);
+        map.put("data", obj);
+        map.put("total", total);
         return map;
     }
 
@@ -99,9 +102,9 @@ public class InvoiceController {
             System.out.println("抢到资源");
         } else {
             System.out.println("资源已被占用，稍后再试");
-            Map<Object,String> map = new HashMap<Object, String>(16);
-            map.put("message","资源已被占用，稍后再试");
-            map.put("time",TimeString);
+            Map<Object, String> map = new HashMap<Object, String>(16);
+            map.put("message", "资源已被占用，稍后再试");
+            map.put("time", TimeString);
             return map;
         }
         try {
@@ -139,9 +142,9 @@ public class InvoiceController {
 
     //查找日期范围
     @ResponseBody
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @RequestMapping(value = "/distinct/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
-    public Map distinctCut(@RequestBody JSONArray params,@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+    public Map distinctCut(@RequestBody JSONArray params, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String TimeString = time.format(new Date());
         System.out.println(TimeString);
@@ -158,9 +161,9 @@ public class InvoiceController {
             System.out.println("抢到资源");
         } else {
             System.out.println("资源已被占用，稍后再试");
-            Map<Object,String> map = new HashMap<Object, String>(16);
-            map.put("message","资源已被占用，稍后再试");
-            map.put("time",TimeString);
+            Map<Object, String> map = new HashMap<Object, String>(16);
+            map.put("message", "资源已被占用，稍后再试");
+            map.put("time", TimeString);
             return map;
         }
         try {
@@ -171,8 +174,8 @@ public class InvoiceController {
                 for (int i = 0; i < params.size(); i++) {
                     //用来决定Json对象要循环几次解析
                     JSONObject jsonObj = params.getJSONObject(i);
-                    beginDate = jsonObj.getString("xyBeginDate");
-                    endDate = jsonObj.getString("xyEndDate");
+                    beginDate = time.format(jsonObj.getDate("xyBeginDate")).toString();
+                    endDate = time.format(jsonObj.getDate("xyEndDate")).toString();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -189,8 +192,8 @@ public class InvoiceController {
         long total = info.getTotal();
         System.out.println(info);
         Map map = new HashMap();
-        map.put("data",obj);
-        map.put("total",total);
+        map.put("data", obj);
+        map.put("total", total);
         return map;
     }
 
@@ -213,9 +216,9 @@ public class InvoiceController {
             System.out.println("抢到资源");
         } else {
             System.out.println("资源已被占用，稍后再试");
-            Map<Object,String> map = new HashMap<Object, String>(16);
-            map.put("message","资源已被占用，稍后再试");
-            map.put("time",TimeString);
+            Map<Object, String> map = new HashMap<Object, String>(16);
+            map.put("message", "资源已被占用，稍后再试");
+            map.put("time", TimeString);
             return map;
         }
         try {
