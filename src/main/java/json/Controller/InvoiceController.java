@@ -80,6 +80,7 @@ public class InvoiceController {
 
     //查找日期范围
     @ResponseBody
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @RequestMapping(value = "/distinct", produces = {"application/json;charset=UTF-8"})
     public Object distinct(@RequestBody JSONArray params) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,6 +139,7 @@ public class InvoiceController {
 
     //查找日期范围
     @ResponseBody
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @RequestMapping(value = "/distinct/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
     public Map distinctCut(@RequestBody JSONArray params,@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
