@@ -139,7 +139,7 @@ public class InvoiceController {
     //查找日期范围
     @ResponseBody
     @RequestMapping(value = "/distinct/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
-    public Object distinctCut(@RequestBody JSONArray params,@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+    public Map distinctCut(@RequestBody JSONArray params,@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String TimeString = time.format(new Date());
         System.out.println(TimeString);
@@ -180,7 +180,16 @@ public class InvoiceController {
         } finally {
             semaphore.release(1);//释放一个资源
         }
-        return invoiceService.queryDate(beginDate, endDate, page, limit);
+        //将参数传给这个方法就可以实现物理分页了，非常简单。
+        Page pageList = PageHelper.startPage(page, limit);
+        Object obj = invoiceService.queryDate(beginDate, endDate, page, limit);
+        PageInfo info = new PageInfo(pageList.getResult());
+        long total = info.getTotal();
+        System.out.println(info);
+        Map map = new HashMap();
+        map.put("data",obj);
+        map.put("total",total);
+        return map;
     }
 
     //成组解析
