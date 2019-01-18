@@ -128,11 +128,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     //查询时间范围
     @Override
-    public List<Invoice> queryDate(String beginDate, String endDate,int page,int limit) {
-        System.out.println("("+"开始时间："+ beginDate + ")"+";"+"("+"结束时间："+ endDate + ")");
-        System.out.println("当前页码："+ page);
-        System.out.println("限制页数："+ limit);
-        PageHelper.startPage(page,limit);
+    public List<Invoice> queryDate(String beginDate, String endDate) {
         List<Invoice> result = invoiceMapper.queryInvoiceDate(beginDate,endDate);
         System.out.println("------------------------------------------------------");
         System.out.println("------------------------------------------------------");

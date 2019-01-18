@@ -3,7 +3,6 @@ package json.mapper;
 
 import json.model.Invoice;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -23,4 +22,6 @@ public interface InvoiceMapper {
     int saveArray(@Param("saveInvoiceList") List<Invoice> receptInvoiceList);
 
     List<Invoice> queryInvoiceDate(String beginDate, String endDate);
+
+    Object dddd();
 }

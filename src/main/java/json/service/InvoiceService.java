@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface InvoiceService {
+    //查询时间范围
+    List<Invoice> queryDate(String beginDate, String endDate);
+
     List<Invoice> query();
 
     Invoice addData(Invoice temp);
@@ -18,9 +21,6 @@ public interface InvoiceService {
 
 
     List<Invoice> checkRepeat(List<Invoice> receptInvoiceList);
-
-
-    List<Invoice> queryDate(String beginDate, String endDate,int page,int limit);
 }
 
 

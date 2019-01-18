@@ -95,8 +95,6 @@ public class InvoiceController {
         System.out.println("------------------------------------------------------");
         String beginDate = new String();
         String endDate = new String();
-        int page = 0;
-        int limit = 0;
         int availablePermits = semaphore.availablePermits();//可用资源数
         if (availablePermits > 0) {
             System.out.println("抢到资源");
@@ -117,17 +115,6 @@ public class InvoiceController {
                     JSONObject jsonObj = params.getJSONObject(i);
                     beginDate = jsonObj.getString("xyBeginDate");
                     endDate = jsonObj.getString("xyEndDate");
-/*
-                    try {
-                        page = jsonObj.getInteger("page");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        limit = jsonObj.getInteger("limit");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }*/
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -137,12 +124,12 @@ public class InvoiceController {
         } finally {
             semaphore.release(1);//释放一个资源
         }
-        return invoiceService.queryDate(beginDate, endDate, page, limit);
+        return invoiceService.queryDate(beginDate, endDate);
     }
 
-    //查找日期范围
+    //查找日期范围分页
     @ResponseBody
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @RequestMapping(value = "/distinct/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
     public Map distinctCut(@RequestBody JSONArray params, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -187,8 +174,12 @@ public class InvoiceController {
         }
         //将参数传给这个方法就可以实现物理分页了，非常简单。
         Page pageList = PageHelper.startPage(page, limit);
-        Object obj = invoiceService.queryDate(beginDate, endDate, page, limit);
+        System.out.println("("+"开始时间："+ beginDate + ")"+";"+"("+"结束时间："+ endDate + ")");
+        System.out.println("当前页码："+ page);
+        System.out.println("限制页数："+ limit);
+        Object obj = invoiceService.queryDate(beginDate, endDate);
         PageInfo info = new PageInfo(pageList.getResult());
+        PageHelper.startPage(page,limit);
         long total = info.getTotal();
         System.out.println(info);
         Map map = new HashMap();
