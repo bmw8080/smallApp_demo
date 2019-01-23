@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface InvoiceService {
     //查询时间范围
+
     List<Invoice> queryDate(String beginDate, String endDate);
 
     List<Invoice> query();

@@ -7,10 +7,12 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import json.body.VisiableThreadPoolTaskExecutor;
-import json.body.WsInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpOutputMessage;
@@ -18,19 +20,12 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import json.service.DemoService;
-import json.service.impl.DemoServiceImpl;
 import org.apache.cxf.Bus;
-import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.apache.cxf.transport.servlet.CXFServlet;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-
 import javax.xml.ws.Endpoint;
 
 import java.io.IOException;
@@ -48,59 +43,39 @@ public class SpringConfiguration {
     //webservice配置类
 
     @Configuration
-    class CxfConfig {
+    public class CxfConfig {
+        @Autowired
+        private Bus bus;
+
+        @Autowired
+        DemoService demoService;
 
         /**
-         * 注册一个dispatcherServlet,解决增加ws之后http接口访问不了问题
+         * 此方法作用是改变项目中服务名的前缀名，此处127.0.0.1或者localhost不能访问时，请使用ipconfig查看本机ip来访问
+         * 此方法被注释后:wsdl访问地址为http://127.0.0.1:8080/services/user?wsdl
+         * 去掉注释后：wsdl访问地址为：http://127.0.0.1:8080/soap/user?wsdl
+         * @return
          */
-        @Bean
-        public ServletRegistrationBean restServlet(){
-            //注解扫描上下文
-            AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
-            //base package
-            applicationContext.scan("com.json");
-            //通过构造函数指定dispatcherServlet的上下文
-            DispatcherServlet rest_dispatcherServlet = new DispatcherServlet(applicationContext);
-
-            //用ServletRegistrationBean包装servlet
-            ServletRegistrationBean registrationBean = new ServletRegistrationBean(rest_dispatcherServlet);
-            registrationBean.setLoadOnStartup(1);
-            //指定urlmapping
-            registrationBean.addUrlMappings("/*");
-            //指定name，如果不指定默认为dispatcherServlet
-            registrationBean.setName("rest");
-            return registrationBean;
-        }
-
+        @SuppressWarnings("all")
         @Bean
         public ServletRegistrationBean dispatcherServlet() {
-            ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new CXFServlet(), "/demo/*");
-            servletRegistrationBean.setName("webService");
-            return servletRegistrationBean;
-        }
-        @Bean(name = Bus.DEFAULT_BUS_ID)
-        public SpringBus springBus() {
-            return new SpringBus();
+            return new ServletRegistrationBean(new CXFServlet(), "/soap/*");
         }
 
-        @Bean
-        public DemoService demoJsonService(){
-            return new DemoServiceImpl();
-        }
-
+        /** JAX-WS
+         * 站点服务
+         * **/
+        @SuppressWarnings("all")
         @Bean
         public Endpoint endpoint() {
-            EndpointImpl endpoint = new EndpointImpl(springBus(), demoJsonService());
-            endpoint.publish("/ws");
-            endpoint.getInInterceptors().add(new WsInterceptor()); //add webservice inteceptor
+            EndpointImpl endpoint = new EndpointImpl(bus, demoService);
+            endpoint.publish("/user");
             return endpoint;
         }
+
     }
 
-
-
-
-    //json转json对象
+   //json转json对象
 
     @Configuration
     class JacksonConfiguration {
@@ -110,9 +85,10 @@ public class SpringConfiguration {
             objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
             return objectMapper;
         }
+
     }
 
-//格式化日期
+    //格式化日期
 
     @Configuration
     static class FastJsonHttpDateConverter extends FastJsonHttpMessageConverter {
@@ -138,7 +114,7 @@ public class SpringConfiguration {
 
     }
 
-//跨域访问
+    //跨域访问
 
     @Configuration
     class CorsConfig extends WebMvcConfigurerAdapter {
@@ -154,7 +130,8 @@ public class SpringConfiguration {
         }
 
     }
-//线程池配置
+
+    //线程池配置
 
     @Configuration
     @Slf4j
