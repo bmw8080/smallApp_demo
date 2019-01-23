@@ -197,14 +197,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.4.4</version><!--$NO-MVN-MAN-VER$ -->
         </dependency>
-
-        <!-- gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.0</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
-
+        
         <dependency>
             <groupId>api.gateway</groupId>
             <artifactId>apihelper</artifactId>
