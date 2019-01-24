@@ -20,12 +20,15 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import json.service.DemoService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
+
 import javax.xml.ws.Endpoint;
 
 import java.io.IOException;
@@ -54,17 +57,38 @@ public class SpringConfiguration {
          * 此方法作用是改变项目中服务名的前缀名，此处127.0.0.1或者localhost不能访问时，请使用ipconfig查看本机ip来访问
          * 此方法被注释后:wsdl访问地址为http://127.0.0.1:8080/services/user?wsdl
          * 去掉注释后：wsdl访问地址为：http://127.0.0.1:8080/soap/user?wsdl
+         *
          * @return
          */
+        @Bean
+        public ServletRegistrationBean restServlet() {
+            //注解扫描上下文
+            AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
+            //base package
+//        applicationContext.scan("com.wiseda.xygzcs");
+            //通过构造函数指定dispatcherServlet的上下文
+            DispatcherServlet rest_dispatcherServlet = new DispatcherServlet(applicationContext);
+
+            //用ServletRegistrationBean包装servlet
+            ServletRegistrationBean registrationBean = new ServletRegistrationBean(rest_dispatcherServlet);
+            registrationBean.setLoadOnStartup(1);
+            //指定urlmapping
+            registrationBean.addUrlMappings("/*");
+            //指定name，如果不指定默认为dispatcherServlet
+            registrationBean.setName("rest");
+            return registrationBean;
+        }
+
         @SuppressWarnings("all")
         @Bean
         public ServletRegistrationBean dispatcherServlet() {
             return new ServletRegistrationBean(new CXFServlet(), "/soap/*");
         }
 
-        /** JAX-WS
+        /**
+         * JAX-WS
          * 站点服务
-         * **/
+         **/
         @SuppressWarnings("all")
         @Bean
         public Endpoint endpoint() {
@@ -75,7 +99,7 @@ public class SpringConfiguration {
 
     }
 
-   //json转json对象
+    //json转json对象
 
     @Configuration
     class JacksonConfiguration {
